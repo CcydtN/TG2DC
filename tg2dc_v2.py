@@ -7,8 +7,8 @@ TG_TOKEN:str = ''
 # The webhook url that copy from client
 DC_WEBHOOK:str = ""
 
-    # You can check and edit the message at here
 def forward2dc(update: Update, _: CallbackContext) -> None:
+    # You can check and edit the message at here
     content = update.message.text
     print("Message:\n",content)
     payload = {'content': content}
