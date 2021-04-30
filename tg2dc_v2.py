@@ -1,27 +1,25 @@
 import requests as req
 # External Library
-from aiogram import Bot, Dispatcher, types, executor
-from aiogram.utils.executor import Executor
+from telegram import Update
+from telegram.ext import Updater, Filters, MessageHandler, CallbackContext
 
 TG_TOKEN:str = ''
 # The webhook url that copy from client
 DC_WEBHOOK:str = ""
 
-tg_bot = Bot(TG_TOKEN)
-tg = Dispatcher(tg_bot)
-
-@tg.message_handler()
-async def handle(message: types.Message):
-    print("Message:\n",message.md_text)
     # You can check and edit the message at here
-    payload = {'content':message.md_text}
+def forward2dc(update: Update, _: CallbackContext) -> None:
+    content = update.message.text
+    print("Message:\n",content)
+    payload = {'content': content}
     response = req.post(DC_WEBHOOK+"?wait=true",json=payload)
-    print(response.json())
-
 
 def main():
     print("-"*40)
-    executor.start_polling(tg, skip_updates=True)
+    updater = Updater(TG_TOKEN)
+    updater.dispatcher.add_handler(MessageHandler(Filters.text, forward2dc))
+    updater.start_polling()
+    updater.idle()
 
 if __name__ == '__main__':
    main()

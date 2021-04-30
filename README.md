@@ -9,3 +9,4 @@ Scripts to forward message from telegram to discord
 - Require creating bot in Telegram
 - Require creating webhoot in Discord server
 - Cannot be used in direct mssage (As no webhook to that)
+- Using another library
