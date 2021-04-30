@@ -15,7 +15,7 @@ async def handle(message: types.Message):
     print("Message:\n",message.md_text)
     # You can check and edit the message at here
     payload = {'content':message.md_text}
-    response = req.post(DC_API_URL+"?wait=true",json=payload)
+    response = req.post(DC_WEBHOOK+"?wait=true",json=payload)
     print(response.json())
 
 
